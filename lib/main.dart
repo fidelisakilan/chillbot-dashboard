@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Inter Tight", "Spectral");
     MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ChillBot',
       theme: theme.light().copyWith(
         appBarTheme: const AppBarTheme(

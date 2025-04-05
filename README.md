@@ -1,16 +1,10 @@
-# chillbot_dashboard
+# ChillBot
 
 A new Flutter project.
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+<img width="1440" alt="Screenshot 2025-04-05 at 5 20 54 AM" src="https://github.com/user-attachments/assets/c4ee9b3b-d034-4ecb-bb98-8b89d653f4b6" />
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="1440" alt="Screenshot 2025-04-05 at 5 22 06 AM" src="https://github.com/user-attachments/assets/aa738a71-c4c9-40d3-b8c9-3eefa24bc11a" />

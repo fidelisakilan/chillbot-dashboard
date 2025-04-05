@@ -38,9 +38,7 @@ class _HomeState extends State<Home> {
                     stream: bloc.fridgeStream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return FridgeItemListWidget(
-                          fridge: snapshot.data!,
-                        );
+                        return FridgeItemListWidget(fridge: snapshot.data!);
                       }
                       return Container();
                     },
@@ -116,8 +114,10 @@ class GroceryItem extends StatelessWidget {
     int diff = date.difference(DateTime.now()).inDays;
     if (diff == 0) {
       return "Expiring Today";
+    } else if (diff == 1) {
+      return "$diff day Left";
     } else if (diff > 0) {
-      return "Best Before: $diff days";
+      return "$diff days Left";
     } else {
       return "Expired";
     }
@@ -220,42 +220,92 @@ class RecipeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: context.colorScheme.primaryContainer,
       ),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          if (model.imageUrl != null)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                model.imageUrl!,
+                fit: BoxFit.cover,
+                width: 500,
+                height: 500,
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Stack(
               children: [
-                Text(
-                  model.label,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: context.colorScheme.primary,
+                    ),
+                    padding: EdgeInsets.all(20),
+                    child: Icon(Icons.restaurant, color: Colors.white),
                   ),
                 ),
-                Text(
-                  model.ingredients.toString(),
-                  style: const TextStyle(fontWeight: FontWeight.w400),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      showCustomDialog(
+                        context,
+                        model.label,
+                        model.ingredients.toString(),
+                        model.steps,
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: context.colorScheme.primary,
+                      ),
+                      padding: EdgeInsets.all(20),
+                      child: Icon(Icons.link, color: Colors.white),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: context.colorScheme.primary,
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.label,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      // Text(
+                      //   model.ingredients.toString(),
+                      //   style: const TextStyle(fontWeight: FontWeight.w400),
+                      // ),
+                    ],
+                  ),
+                ),
               ),
-              padding: EdgeInsets.all(20),
-              child: Icon(Icons.restaurant,color: Colors.white,),
             ),
           ),
         ],
